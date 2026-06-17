@@ -1,0 +1,231 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: #f5f5f5;
+}
+
+header {
+    background: #0d6efd;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.logo h2 {
+    color: white;
+    padding: 15px 0;
+    cursor: pointer;
+}
+
+/* ซ่อน Checkbox ที่ใช้ทำปุ่มเปิดปิด */
+.menu-checkbox {
+    display: none;
+}
+
+.menu-btn {
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    display: none; /* ซ่อนในหน้าจอคอมพิวเตอร์ */
+}
+
+.menu {
+    display: flex;
+    list-style: none;
+}
+
+.menu li {
+    position: relative;
+}
+
+.menu li a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 22px 20px;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.menu li a:hover {
+    background: #084298;
+}
+
+/* --- Mega Menu สำหรับ Desktop --- */
+.mega-content {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%); /* จัดให้อยู่กึ่งกลางปุ่มสินค้า */
+    width: 950px;
+    background: white;
+    display: none;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    border-radius: 0 0 8px 8px;
+    grid-template-columns: repeat(4, 1fr) 250px;
+    gap: 20px;
+    z-index: 999;
+}
+
+/* แสดง Mega Menu เมื่อ Hover (บนคอมพิวเตอร์) */
+@media (min-width: 993px) {
+    .mega-menu:hover .mega-content {
+        display: grid;
+    }
+}
+
+.column h3 {
+    color: #0d6efd;
+    margin-bottom: 15px;
+    font-size: 16px;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 8px;
+}
+
+.column h3 i {
+    margin-right: 5px;
+}
+
+.column a {
+    display: block;
+    color: #333 !important;
+    padding: 6px 0 !important;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.column a:hover {
+    color: #0d6efd !important;
+    background: none !important;
+    padding-left: 5px !important; /* ลูกเล่นตอน hover */
+}
+
+/* โซนโปรโมชั่น */
+.promo {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid #dee2e6;
+}
+
+.promo img {
+    width: 100%;
+    border-radius: 6px;
+    object-fit: cover;
+}
+
+.promo h3 {
+    margin: 10px 0 5px;
+    color: #dc3545;
+    font-size: 16px;
+    border: none;
+}
+
+.promo p {
+    font-size: 12px;
+    color: #6c757d;
+}
+
+.promo button {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.promo button:hover {
+    background: #bb2d3b;
+}
+
+/* --- 📱 Responsive Design (หน้าจอมือถือและแท็บเล็ต) --- */
+
+@media (max-width: 992px) {
+    .navbar {
+        padding: 10px 20px;
+    }
+
+    .menu-btn {
+        display: block; /* แสดงปุ่มแฮมเบอร์เกอร์ */
+    }
+
+    /* ซ่อนเมนูหลักไว้ก่อน และจะเลื่อนลงมาเมื่อกดเปิด */
+    .menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: #0d6efd;
+        flex-direction: column;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    /* เมื่อกดติ๊กถูกที่ Checkbox ให้แสดงเมนู */
+    .menu-checkbox:checked ~ .menu {
+        max-height: 80vh;
+        overflow-y: auto; /* เลื่อนสกรอลล์ได้กรณีเมนูยาวเกินหน้าจอ */
+    }
+
+    .menu li a {
+        padding: 15px 20px;
+        border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* ปรับแต่ง Mega Menu สำหรับเปิดบนมือถือ */
+    .mega-content {
+        position: static;
+        transform: none;
+        width: 100%;
+        box-shadow: none;
+        background: #f8f9fa;
+        padding: 15px 20px;
+        grid-template-columns: 1fr; /* เรียงเป็น 1 คอลัมน์แนวดิ่ง */
+        gap: 15px;
+    }
+
+    /* บนมือถือ จะแสดง Mega Menu ทันทีเมื่อคลิกหรือเน้นที่หัวข้อสินค้า */
+    .mega-menu:focus-within .mega-content,
+    .mega-menu:hover .mega-content {
+        display: grid;
+    }
+
+    .column h3 {
+        margin-top: 10px;
+    }
+
+    .column a {
+        padding: 8px 15px !important;
+        background: rgba(0,0,0,0.02);
+        margin-bottom: 2px;
+        border-radius: 4px;
+    }
+
+    .promo {
+        margin-top: 15px;
+    }
+}
