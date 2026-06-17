@@ -4,36 +4,34 @@ document.addEventListener("DOMContentLoaded", () => {
     const megaTrigger = document.getElementById("mega-trigger");
     const megaContent = document.querySelector(".mega-content-box");
 
-    // 1. เปิด-ปิด เมนูหลักบนมือถือ (Hamburger Menu)
+    // 1. เปิด-ปิด เมนูหลักแฮมเบอร์เกอร์บนมือถือ
     mobileMenuBtn.addEventListener("click", () => {
         primaryMenu.classList.toggle("active");
         
-        // สลับไอคอนระหว่าง ขีดสามขีด (bars) กับ กากบาท (xmark)
         const icon = mobileMenuBtn.querySelector("i");
         if (primaryMenu.classList.contains("active")) {
             icon.classList.remove("fa-bars");
-            icon.classList.add("fa-xmark");
+            icon.classList.add("fa-xmark"); // เปลี่ยนเป็นไอคอนกากบาท
         } else {
             icon.classList.remove("fa-xmark");
             icon.classList.add("fa-bars");
             
-            // ถ้าปิดเมนูหลัก ให้สั่งปิดเมนูสินค้าข้างในด้วย
+            // ปิดเมนูสินค้าข้างในเมื่อปิดเมนูหลัก
             megaContent.classList.remove("open");
             megaTrigger.classList.remove("arrow-rotate");
         }
     });
 
-    // 2. ระบบ Click-to-Open เมนูสินค้า (Mega Menu) สำหรับขนาดจอมือถือ
+    // 2. ระบบคลิกเพื่อกาง/หุบ เมนูสินค้า (Mega Menu) บนจอมือถือ
     megaTrigger.addEventListener("click", (e) => {
-        // ทำงานเฉพาะเมื่อความกว้างหน้าจอน้อยกว่าหรือเท่ากับ 992px เท่านั้น
         if (window.innerWidth <= 992) {
-            e.preventDefault(); // ป้องกันการเปลี่ยนหน้าเพจทันที
+            e.preventDefault(); // ป้องกันไม่ให้หน้าเว็บกระตุกหรือโหลดใหม่
             megaContent.classList.toggle("open");
             megaTrigger.classList.toggle("arrow-rotate");
         }
     });
 
-    // 3. รีเซ็ตคลาสต่างๆ เมื่อผู้ใช้ขยายหน้าจอกลับไปเป็นเดสก์ท็อป
+    // 3. ล้างสถานะเมื่อขยายหน้าจอกลับมาเป็น Desktop
     window.addEventListener("resize", () => {
         if (window.innerWidth > 992) {
             primaryMenu.classList.remove("active");
